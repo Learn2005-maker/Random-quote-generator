@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quote Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0f2f5, #d6e4f0);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+    }
+
+    #quote-generator {
+      background-color: #ffffffd9;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    h2 {
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    #quote {
+      font-size: 2rem;
+      color: #444;
+      margin: 20px 0;
+      min-height: 80px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    #generate-btn {
+      padding: 10px 25px;
+      font-size: 2rem;
+      background-color: #6a0dad;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #generate-btn:hover {
+      background-color: #4e008f;
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      #quote {
+        font-size: 1rem;
+      }
+
+      #generate-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section id="quote-generator">
+    <h2>🌟 Random Quote Generator</h2>
+    <p id="quote">Click below to get inspired.</p>
+    <button id="generate-btn">Generate Quote</button>
+  </section>
+
+  <script>
+    const quotes = [
+      "The only way to do great work is to love what you do. – Steve Jobs",
+      "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill",
+      "Believe you can and you're halfway there. – Theodore Roosevelt",
+      "I have not failed. I've just found 10,000 ways that won't work. – Thomas Edison",
+      "Don’t watch the clock; do what it does. Keep going. – Sam Levenson",
+      "In the middle of every difficulty lies opportunity. – Albert Einstein",
+      "Whether you think you can or think you can’t, you’re right. – Henry Ford",
+      "You miss 100% of the shots you don't take. – Wayne Gretzky",
+      "Everything you’ve ever wanted is on the other side of fear. – George Addair",
+      "Start where you are. Use what you have. Do what you can. – Arthur Ashe",
+      "Dream big and dare to fail. – Norman Vaughan",
+      "Do one thing every day that scares you. – Eleanor Roosevelt",
+      "It always seems impossible until it is done. – Nelson Mandela",
+      "You are never too old to set another goal or to dream a new dream. – C.S. Lewis",
+      "The future depends on what you do today. – Mahatma Gandhi",
+      "Don’t wait. The time will never be just right. – Napoleon Hill",
+      "Doubt kills more dreams than failure ever will. – Suzy Kassem",
+      "A journey of a thousand miles begins with a single step. – Lao Tzu",
+      "Turn your wounds into wisdom. – Oprah Winfrey",
+      "If you want to lift yourself up, lift up someone else. – Booker T. Washington",
+  "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis",
+  "Stay hungry, stay foolish. – Steve Jobs (Inspiring)",
+  "Believe you can and you're halfway there. – Theodore Roosevelt (Inspiring)",
+  "I have not failed. I've just found 10,000 ways that won't work. – Thomas Edison (Mindset)",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill (Reflection)",
+  "Innovation distinguishes between a leader and a follower. – Steve Jobs (Mindset)",
+  "Don’t watch the clock; do what it does. Keep going. – Sam Levenson (Life Tip)",
+  "In the middle of every difficulty lies opportunity. – Albert Einstein (Inspiring)",
+  "Whether you think you can or think you can’t, you’re right. – Henry Ford",
+  "The only way to do great work is to love what you do. – Steve Jobs (Motivational)",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill (Wisdom)",
+  "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis (Mindset)",
+  "Stay hungry, stay foolish. – Steve Jobs (Life Tip)",
+  "Believe you can and you're halfway there. – Theodore Roosevelt (Mindset)",
+  "I have not failed. I've just found 10,000 ways that won't work. – Thomas Edison (Motivational)",
+  "Innovation distinguishes between a leader and a follower. – Steve Jobs (Inspiring)",
+  "Don’t watch the clock; do what it does. Keep going. – Sam Levenson (Reflection)",
+  "In the middle of every difficulty lies opportunity. – Albert Einstein (Mindset)",
+  "Whether you think you can or think you can’t, you’re right. – Henry Ford (Wisdom)",
+  "The only way to do great work is to love what you do. – Steve Jobs (Wisdom)",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill (Motivational)",
+  "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis (Wisdom)",
+  "Stay hungry, stay foolish. – Steve Jobs (Motivational)",
+  "Believe you can and you're halfway there. – Theodore Roosevelt (Wisdom)",
+  "I have not failed. I've just found 10,000 ways that won't work. – Thomas Edison (Inspiring)",
+  "Innovation distinguishes between a leader and a follower. – Steve Jobs (Reflection)",
+  "Don’t watch the clock; do what it does. Keep going. – Sam Levenson (Inspiring)",
+  "In the middle of every difficulty lies opportunity. – Albert Einstein (Wisdom)",
+  "Whether you think you can or think you can’t, you’re right. – Henry Ford (Inspiring)",
+  "The only way to do great work is to love what you do. – Steve Jobs (Reflection)",
+  "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis (Motivational)",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill (Life Tip)",
+  "Don’t watch the clock; do what it does. Keep going. – Sam Levenson (Motivational)",
+  "Stay hungry, stay foolish. – Steve Jobs (Wisdom)",
+  "Believe you can and you're halfway there. – Theodore Roosevelt (Reflection)",
+  "I have not failed. I've just found 10,000 ways that won't work. – Thomas Edison (Wisdom)",
+  "Innovation distinguishes between a leader and a follower. – Steve Jobs (Motivational)",
+  "Don’t watch the clock; do what it does. Keep going. – Sam Levenson (Mindset)",
+  "In the middle of every difficulty lies opportunity. – Albert Einstein (Life Tip)",
+  "Whether you think you can or think you can’t, you’re right. – Henry Ford (Motivational)",
+  "The only way to do great work is to love what you do. – Steve Jobs (Inspiring)",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill (Inspiring)",
+  "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis (Reflection)",
+  "Stay hungry, stay foolish. – Steve Jobs (Reflection)",
+  "Believe you can and you're halfway there. – Theodore Roosevelt (Life Tip)",
+  "I have not failed. I've just found 10,000 ways that won't work. – Thomas Edison (Reflection)",
+  "Innovation distinguishes between a leader and a follower. – Steve Jobs (Life Tip)",
+  "Don’t watch the clock; do what it does. Keep going. – Sam Levenson (Wisdom)",
+  "In the middle of every difficulty lies opportunity. – Albert Einstein (Reflection)",
+  "Whether you think you can or think you can’t, you’re right. – Henry Ford (Life Tip)",
+  "The only way to do great work is to love what you do. – Steve Jobs (Mindset)",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill (Mindset)",
+  "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis (Life Tip)",
+  "Stay hungry, stay foolish. – Steve Jobs (Mindset)"
+    ];
+
+    const quoteElement = document.getElementById("quote");
+    const generateBtn = document.getElementById("generate-btn");
+
+    generateBtn.addEventListener("click", () => {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      quoteElement.textContent = quotes[randomIndex];
+    });
+  </script>
+
+</body>
+</html>
